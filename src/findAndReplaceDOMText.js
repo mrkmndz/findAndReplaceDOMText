@@ -23,7 +23,6 @@
 	var PORTION_MODE_RETAIN = 'retain';
 	var PORTION_MODE_FIRST = 'first';
 
-	var doc = document;
 	var toString = {}.toString;
 	var hasOwn = {}.hasOwnProperty;
 
@@ -73,7 +72,7 @@
 					m.index += m[0].indexOf(cg);
 					m[0] = cg;
 				}
-		 
+
 				m.endIndex = m.index + m[0].length;
 				m.startIndex = m.index;
 				m.index = mi;
@@ -90,9 +89,9 @@
 		return true;
 	}
 
-	/** 
+	/**
 	 * findAndReplaceDOMText
-	 * 
+	 *
 	 * Locates matches and replaces with replacementNode
 	 *
 	 * @param {Node} node Element or Text node to search within
@@ -169,6 +168,12 @@
 			}
 		}
 
+    if (options.document){
+      this.doc = options.document;
+    }else {
+      this.doc = document;
+    }
+
 		this.node = node;
 		this.options = options;
 
@@ -241,7 +246,7 @@
 			if (!match[0]) {
 				throw new Error('findAndReplaceDOMText cannot handle zero-length matches');
 			}
-	 
+
 			match.endIndex = characterOffset + match.index + match[0].length;
 			match.startIndex = characterOffset + match.index;
 			match.index = matchIndex;
@@ -309,10 +314,10 @@
 				return txt;
 
 			}
-			
+
 		},
 
-		/** 
+		/**
 		 * Steps through the target node, looking for matches, and
 		 * calling replaceFn when a match is found.
 		 */
@@ -384,7 +389,7 @@
 					curNode = this.replaceMatch(match, startPortion, innerPortions, endPortion);
 
 					// processMatches has to return the node that replaced the endNode
-					// and then we step back so we can continue from the end of the 
+					// and then we step back so we can continue from the end of the
 					// match:
 
 					atIndex -= (endPortion.node.data.length - endPortion.endIndexInNode);
