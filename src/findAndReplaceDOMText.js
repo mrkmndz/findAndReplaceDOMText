@@ -491,7 +491,7 @@
 
 			if (wrapper && wrapper.nodeType) {
 				// Wrapper has been provided as a stencil-node for us to clone:
-				var clone = doc.createElement('div');
+				var clone = this.doc.createElement('div');
 				clone.innerHTML = wrapper.outerHTML || new XMLSerializer().serializeToString(wrapper);
 				wrapper = clone.firstChild;
 			}
@@ -501,12 +501,12 @@
 				if (replacement && replacement.nodeType) {
 					return replacement;
 				}
-				return doc.createTextNode(String(replacement));
+				return this.doc.createTextNode(String(replacement));
 			}
 
-			var el = typeof wrapper == 'string' ? doc.createElement(wrapper) : wrapper;
+			var el = typeof wrapper == 'string' ? this.doc.createElement(wrapper) : wrapper;
 
-			replacement = doc.createTextNode(
+			replacement = this.doc.createTextNode(
 				this.prepareReplacementString(
 					replacement, portion, match, matchIndex
 				)
@@ -539,7 +539,7 @@
 
 				if (startPortion.indexInNode > 0) {
 					// Add `before` text node (before the match)
-					preceedingTextNode = doc.createTextNode(node.data.substring(0, startPortion.indexInNode));
+					preceedingTextNode = this.doc.createTextNode(node.data.substring(0, startPortion.indexInNode));
 					node.parentNode.insertBefore(preceedingTextNode, node);
 				}
 
@@ -553,7 +553,7 @@
 
 				if (endPortion.endIndexInNode < node.length) { // ?????
 					// Add `after` text node (after the match)
-					followingTextNode = doc.createTextNode(node.data.substring(endPortion.endIndexInNode));
+					followingTextNode = this.doc.createTextNode(node.data.substring(endPortion.endIndexInNode));
 					node.parentNode.insertBefore(followingTextNode, node);
 				}
 
@@ -575,11 +575,11 @@
 				// Replace matchStartNode -> [innerMatchNodes...] -> matchEndNode (in that order)
 
 
-				preceedingTextNode = doc.createTextNode(
+				preceedingTextNode = this.doc.createTextNode(
 					matchStartNode.data.substring(0, startPortion.indexInNode)
 				);
 
-				followingTextNode = doc.createTextNode(
+				followingTextNode = this.doc.createTextNode(
 					matchEndNode.data.substring(endPortion.endIndexInNode)
 				);
 
